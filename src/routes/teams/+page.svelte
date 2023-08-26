@@ -4,9 +4,9 @@
 </script>
 <a href="/">Home</a>
 
-<h1>Teams</h1>
+<h1 class="text-white text-4xl text-center">Teams</h1>
 
-<div class="grid grid-cols-2 gap-6 mx-20">
+<div class="grid grid-cols-2 gap-6 mx-10 mt-10">
   {#each data.divisions as division}
     <div class="border-solid border-black border shadow-sm rounded-lg">
       <div class="bg-zinc-500 px-2 py-3 border-b text-white rounded-t-lg">
