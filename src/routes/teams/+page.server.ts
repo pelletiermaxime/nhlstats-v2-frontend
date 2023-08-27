@@ -1,4 +1,5 @@
-import { API_URL, CACHE_CONTROL } from '$env/static/private'
+import { API_URL } from '$env/static/private'
+import { getCacheControl } from '$lib';
 import groupBy from 'lodash/groupBy';
 
 /** @type {import('./$types').PageLoad} */
@@ -14,11 +15,8 @@ export async function load({ fetch, setHeaders }) {
     {id: 4, name: 'Pacific'}
   ];
 
-  console.log(divisions);
-  console.log(teamsByDivision);
-
   setHeaders({
-    'cache-control': CACHE_CONTROL
+    'cache-control': getCacheControl(60 * 60 * 24)
   });
 
   return {

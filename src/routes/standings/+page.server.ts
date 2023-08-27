@@ -1,4 +1,5 @@
-import { API_URL, CACHE_CONTROL } from '$env/static/private'
+import { API_URL } from '$env/static/private'
+import { getCacheControl } from '$lib';
 
 /** @type {import('./$types').PageLoad} */
 export async function load({ fetch, setHeaders }) {
@@ -6,7 +7,7 @@ export async function load({ fetch, setHeaders }) {
   const data = await response.json();
 
   setHeaders({
-    'cache-control': CACHE_CONTROL
+    'cache-control': getCacheControl()
   });
 
   return {

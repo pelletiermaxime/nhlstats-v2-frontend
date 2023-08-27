@@ -1,4 +1,3 @@
-// import adapter from "svelte-kit-sst";
 import adapter from '@sveltejs/adapter-cloudflare';
 import { vitePreprocess } from "@sveltejs/kit/vite";
 
