@@ -5,7 +5,9 @@ export default defineConfig({
   extractors: [
     extractorSvelte(),
   ],
-  shortcuts: [],
+  shortcuts: {
+    'title': 'text-white text-4xl text-center',
+  },
   presets: [
     presetUno(),
   ],
