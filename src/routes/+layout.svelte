@@ -1,5 +1,5 @@
 <script lang="ts">
-  import '@unocss/reset/normalize.css'
+  import '@unocss/reset/tailwind-compat.css'
   import 'uno.css'
 </script>
 <main class="bg-zinc-800" style="height: 100%">
