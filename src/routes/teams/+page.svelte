@@ -1,6 +1,6 @@
 <script lang="ts">
   /** @type {import('./$types').PageData} */
-  export let data;
+  export let data
 </script>
 
 <div class="grid grid-cols-2 gap-6 mx-10 mt-10">
