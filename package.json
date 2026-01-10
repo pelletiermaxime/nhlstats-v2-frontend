@@ -2,14 +2,11 @@
   "name": "nhlstats-v2-frontend",
   "version": "0.0.1",
   "private": true,
-  "engines": {
-    "bun": ">=1.0.0"
-  },
   "scripts": {
     "dev": "nuxt dev",
     "build": "nuxt build",
     "preview": "nuxt preview",
-    "test": "bun run test:integration && bun run test:unit",
+    "test": "npm run test:integration && npm run test:unit",
     "lint": "eslint .",
     "format": "prettier --write .",
     "test:integration": "playwright test",
@@ -31,6 +28,6 @@
   },
   "dependencies": {
     "@unocss/reset": "^0.58.9",
-    "nuxt": "^4.2.2"
+    "nuxt": "^3.20.2"
   }
 }
