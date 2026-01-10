@@ -1,6 +1,6 @@
 <template>
   <div>
-    <table v-if="!pending && data && data.data" id="tableOverall" class="w-4/5 m-auto text-white">
+    <table v-if="!pending && data" id="tableOverall" class="w-4/5 m-auto text-white">
       <thead>
         <tr>
           <th>Position</th>
@@ -36,6 +36,6 @@ definePageMeta({
   title: 'Standings'
 })
 
-// Fetch data using composable
-const { data, pending } = await useStandings()
+// Fetch data using Nuxt's $fetch (server-side)
+const { data, pending } = await useAsyncData('standings', () => $fetch('/api/standings'))
 </script>

@@ -42,7 +42,7 @@
         <div class="flex-1">
           <h3 class="font-semibold text-lg text-white">Add Server Configuration</h3>
           <p class="text-zinc-300">
-            Copy the configuration above and add it to your mcpServers section
+            Copy configuration above and add it to your mcpServers section
           </p>
         </div>
       </div>
@@ -55,7 +55,7 @@
         </div>
         <div class="flex-1">
           <h3 class="font-semibold text-lg text-white">Restart Your MCP Client</h3>
-          <p class="text-zinc-300">Restart your MCP client to load the nhlstats server</p>
+          <p class="text-zinc-300">Restart your MCP client to load nhlstats server</p>
         </div>
       </div>
     </div>
@@ -70,7 +70,7 @@
         <li>Current season standings</li>
       </ul>
       <div class="text-zinc-300 mt-4">
-        Your MCP client will automatically discover and present the available tools.
+        Your MCP client will automatically discover and present available tools.
       </div>
     </div>
   </div>

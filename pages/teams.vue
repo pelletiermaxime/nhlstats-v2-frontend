@@ -27,6 +27,6 @@ definePageMeta({
   title: 'Teams'
 })
 
-// Fetch data using composable
-const { data } = await useTeams()
+// Fetch data using Nuxt's $fetch (server-side)
+const { data } = await useAsyncData('teams', () => $fetch('/api/teams'))
 </script>
