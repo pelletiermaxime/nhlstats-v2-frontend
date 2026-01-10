@@ -7,13 +7,13 @@
             <div class="hidden sm:ml-6 sm:block">
               <div class="flex space-x-4">
                 <NuxtLink
-                  v-for="([element, url], index) in menuElements"
-                  :key="index"
-                  :to="url"
-                  :class="[$route.path === url ? 'menu-active' : 'menu-inactive']"
-                  :aria-current="$route.path === url ? 'page' : undefined"
+                  v-for="item in menuElements"
+                  :key="item.name"
+                  :to="item.url"
+                  :class="[route.path === item.url ? 'menu-active' : 'menu-inactive']"
+                  :aria-current="route.path === item.url ? 'page' : undefined"
                 >
-                  {{ element }}
+                  {{ item.name }}
                 </NuxtLink>
               </div>
             </div>
@@ -25,13 +25,13 @@
       <div class="sm:hidden" id="mobile-menu">
         <div class="space-y-1 px-2 pb-3 pt-2">
           <NuxtLink
-            v-for="([element, url], index) in menuElements"
-            :key="index"
-            :to="url"
-            :class="[$route.path === url ? 'menu-mobile-active' : 'menu-mobile-inactive']"
-            :aria-current="$route.path === url ? 'page' : undefined"
+            v-for="item in menuElements"
+            :key="item.name"
+            :to="item.url"
+            :class="[route.path === item.url ? 'menu-mobile-active' : 'menu-mobile-inactive']"
+            :aria-current="route.path === item.url ? 'page' : undefined"
           >
-            {{ element }}
+            {{ item.name }}
           </NuxtLink>
         </div>
       </div>
@@ -41,11 +41,11 @@
 </template>
 
 <script setup lang="ts">
-const menuElements = {
-  Teams: '/teams',
-  Standings: '/standings',
-  'MCP/AI tool': '/mcp'
-}
+const menuElements = [
+  { name: 'Teams', url: '/teams' },
+  { name: 'Standings', url: '/standings' },
+  { name: 'MCP/AI tool', url: '/mcp' }
+]
 
 const route = useRoute()
 </script>

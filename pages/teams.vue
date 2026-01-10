@@ -1,5 +1,5 @@
 <template>
-  <div class="grid grid-cols-2 gap-6 mx-10 mt-10">
+  <div v-if="data" class="grid grid-cols-2 gap-6 mx-10 mt-10">
     <div
       v-for="division in data.divisions"
       :key="division.id"

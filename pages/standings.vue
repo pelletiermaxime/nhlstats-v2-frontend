@@ -1,6 +1,6 @@
 <template>
   <div>
-    <table v-if="!pending && data" id="tableOverall" class="w-4/5 m-auto text-white">
+    <table v-if="!pending && data && data.data" id="tableOverall" class="w-4/5 m-auto text-white">
       <thead>
         <tr>
           <th>Position</th>
@@ -35,9 +35,6 @@
 definePageMeta({
   title: 'Standings'
 })
-
-// Import component
-const Block = resolveComponent('Block')
 
 // Fetch data using composable
 const { data, pending } = await useStandings()
