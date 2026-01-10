@@ -1,6 +1,10 @@
 <template>
   <div>
-    <table v-if="!pending && data" id="tableOverall" class="w-4/5 m-auto text-white">
+    <table
+      v-if="!pending && standings.length > 0"
+      id="tableOverall"
+      class="w-4/5 m-auto text-white"
+    >
       <thead>
         <tr>
           <th>Position</th>
@@ -23,10 +27,11 @@
         </tr>
       </thead>
       <tbody>
-        <Block :standings="data.data" />
+        <Block :standings="standings" />
       </tbody>
     </table>
     <div v-else-if="pending" class="text-white text-center py-8">Loading...</div>
+    <div v-else class="text-white text-center py-8">No standings data available</div>
   </div>
 </template>
 
@@ -38,4 +43,10 @@ definePageMeta({
 
 // Fetch data using Nuxt's $fetch (server-side)
 const { data, pending } = await useAsyncData('standings', () => $fetch('/api/standings'))
+
+// Safe access to standings data
+const standings = computed(() => {
+  if (!data.value) return []
+  return Array.isArray(data.value) ? data.value : data.value.data || []
+})
 </script>
