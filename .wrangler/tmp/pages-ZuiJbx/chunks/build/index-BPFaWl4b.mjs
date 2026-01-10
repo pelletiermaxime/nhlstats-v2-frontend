@@ -1,0 +1,2 @@
+import{v as e}from"./server.mjs";import{o as s}from"../routes/renderer.mjs";import"../nitro/nitro.mjs";import"../_/shared.esm-bundler.mjs";const r=e.defineComponent({__name:"index",__ssrInlineRender:!0,setup:e=>(e,r,o,t)=>{r(`<div${s(t)}></div>`)}}),o=r.setup;r.setup=(s,r)=>{const t=e.useSSRContext();return(t.modules||(t.modules=new Set)).add("pages/index.vue"),o?o(s,r):void 0};export{r as default};
+//# sourceMappingURL=index-BPFaWl4b.mjs.map

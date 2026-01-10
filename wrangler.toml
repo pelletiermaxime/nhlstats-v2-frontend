@@ -1,0 +1,11 @@
+name = "nhlstats-v2-frontend"
+compatibility_date = "2025-01-10"
+
+[build]
+command = "bun install && bun run build"
+
+[site]
+bucket = ".output/public"
+
+[dependencies]
+nodejs = "none"
