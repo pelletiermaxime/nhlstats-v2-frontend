@@ -5,7 +5,7 @@
 </template>
 
 <script setup lang="ts">
-// Use head for any global head configuration
+// Preload critical CSS to prevent FOUC
 useHead({
   titleTemplate: '%s - NHL Stats',
   meta: [
@@ -17,3 +17,12 @@ useHead({
   }
 })
 </script>
+
+<style>
+/* Prevent unstyled flash by setting base styles */
+body {
+  background-color: #27272a; /* zinc-800 */
+  visibility: visible;
+  opacity: 1;
+}
+</style>

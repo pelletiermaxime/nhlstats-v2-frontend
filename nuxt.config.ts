@@ -1,4 +1,5 @@
 export default defineNuxtConfig({
+  compatibilityDate: '2025-01-10',
   nitro: {
     preset: 'cloudflare_pages'
   },
