@@ -9,8 +9,13 @@
     </td>
     <td v-else style="background: #003872; color: white; font-size: 1.8em">{{ position + 1 }}</td>
     <td width="100" align="center">
-      <NuxtLink :to="`/team/${s.short_name}`" class="text-white hover:underline">
-        {{ s.city }} {{ s.name }}
+      <NuxtLink :to="`/team/${s.short_name}`">
+        <img
+          :src="`/logos/SVG/${s.short_name}.svg`"
+          class="h-10"
+          :alt="`${s.city} ${s.name}`"
+          :title="`${s.city} ${s.name}`"
+        />
       </NuxtLink>
     </td>
     <td>{{ s.division }}</td>
