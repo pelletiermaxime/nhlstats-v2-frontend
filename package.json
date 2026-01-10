@@ -28,6 +28,6 @@
   },
   "dependencies": {
     "@unocss/reset": "^0.58.9",
-    "nuxt": "^3.20.2"
+    "nuxt": "^4.2.2"
   }
 }
