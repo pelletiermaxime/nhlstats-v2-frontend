@@ -2,44 +2,35 @@
   "name": "nhlstats-v2-frontend",
   "version": "0.0.1",
   "private": true,
+  "engines": {
+    "node": ">=24"
+  },
   "scripts": {
-    "dev": "vite dev",
-    "build": "vite build",
-    "preview": "vite preview",
+    "dev": "nuxt dev",
+    "build": "nuxt build",
+    "preview": "nuxt preview",
     "test": "npm run test:integration && npm run test:unit",
-    "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
-    "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
-    "lint": "prettier --plugin-search-dir . --check . && eslint .",
-    "format": "prettier --plugin-search-dir . --write .",
+    "lint": "eslint .",
+    "format": "prettier --write .",
     "test:integration": "playwright test",
-    "test:unit": "vitest"
+    "test:unit": "vitest run",
+    "typecheck": "nuxt typecheck"
   },
   "devDependencies": {
+    "@nuxt/eslint-config": "^1.12.1",
     "@playwright/test": "^1.57.0",
-    "@sveltejs/adapter-auto": "^3.3.1",
-    "@sveltejs/adapter-cloudflare": "^3.0.2",
-    "@sveltejs/kit": "^2.49.2",
-    "@sveltejs/vite-plugin-svelte": "^3.1.2",
-    "@typescript-eslint/eslint-plugin": "^6.21.0",
-    "@typescript-eslint/parser": "^6.21.0",
-    "@unocss/extractor-svelte": "^0.58.9",
-    "constructs": "10.3.0",
-    "eslint": "^8.57.1",
-    "eslint-config-prettier": "^9.1.2",
-    "eslint-plugin-svelte": "^2.46.1",
-    "lodash": "^4.17.21",
-    "prettier": "^3.7.4",
-    "prettier-plugin-svelte": "^3.4.1",
-    "svelte": "^4.2.20",
-    "svelte-check": "^3.8.6",
-    "tslib": "^2.8.1",
+    "@types/lodash": "^4.17.23",
+    "@unocss/nuxt": "^66.6.0",
+    "@unocss/reset": "^66.6.0",
+    "eslint": "^9.39.2",
+    "prettier": "^3.8.0",
     "typescript": "^5.9.3",
-    "unocss": "^0.58.9",
-    "vite": "^5.4.21",
-    "vitest": "^1.6.1"
+    "unocss": "^66.6.0",
+    "vitest": "^4.0.17",
+    "vue": "^3.5.26",
+    "vue-tsc": "^3.2.2"
   },
-  "type": "module",
   "dependencies": {
-    "@unocss/reset": "^0.58.9"
+    "nuxt": "^4.2.2"
   }
 }
