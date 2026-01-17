@@ -8,25 +8,23 @@
       <div class="bg-zinc-500 px-2 py-3 border-b text-white rounded-t-lg">
         {{ division.name }}
       </div>
-      <div
-        v-for="team in data.teamsByDivision[division.id]"
-        :key="team.id"
-        class="p-3 bg-zinc-700 last:rounded-b-lg"
-      >
-        <NuxtLink :to="`/teams/${team.id}`" class="text-white no-underline hover:underline">{{
-          team.name
-        }}</NuxtLink>
-      </div>
+        <div
+          v-for="team in data.teamsByDivision[division.id]"
+          :key="team.id"
+          class="p-3 bg-zinc-700 last:rounded-b-lg"
+        >
+          <span class="text-white">{{ team.name }}</span>
+        </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-// Define page metadata
+import type { TeamsResponse } from '~/types/teams'
+
 definePageMeta({
   title: 'Teams'
 })
 
-// Fetch data using Nuxt's $fetch (server-side)
-const { data } = await useAsyncData('teams', () => $fetch('/api/teams'))
+const { data } = await useAsyncData<TeamsResponse | null>('teams', () => $fetch('/api/teams'))
 </script>

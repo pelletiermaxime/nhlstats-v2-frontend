@@ -9,14 +9,12 @@
     </td>
     <td v-else style="background: #003872; color: white; font-size: 1.8em">{{ position + 1 }}</td>
     <td width="100" align="center">
-      <NuxtLink :to="`/team/${s.short_name}`">
         <img
           :src="`/logos/SVG/${s.short_name}.svg`"
           class="h-10"
           :alt="`${s.city} ${s.name}`"
           :title="`${s.city} ${s.name}`"
         />
-      </NuxtLink>
     </td>
     <td>{{ s.division }}</td>
     <td>{{ s.conference }}</td>
@@ -37,26 +35,7 @@
 </template>
 
 <script setup lang="ts">
-interface Standing {
-  conference: string
-  short_name: string
-  city: string
-  name: string
-  division: string
-  gp: number
-  w: number
-  l: number
-  otl: number
-  pts: number
-  row: number
-  gf: number
-  ga: number
-  diff: number
-  home: string
-  away: string
-  l10: string
-  streak: string
-}
+import type { Standing } from '~/types/teams'
 
 defineProps<{
   standings: Standing[]
