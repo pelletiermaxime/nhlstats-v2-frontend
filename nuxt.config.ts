@@ -1,5 +1,11 @@
 export default defineNuxtConfig({
   compatibilityDate: '2025-01-10',
+  routeRules: {
+    '/': { redirect: '/standings' },
+    '/**': {
+      swr: 14400
+    }
+  },
   nitro: {
     preset: 'cloudflare_pages'
   },
