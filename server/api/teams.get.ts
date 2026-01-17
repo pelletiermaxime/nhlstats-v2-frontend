@@ -1,7 +1,7 @@
 import groupBy from 'lodash/groupBy'
 import type { Team, TeamsResponse } from '~/types/teams'
 
-export default defineEventHandler(async (event): Promise<TeamsResponse> => {
+export default defineEventHandler(async (_event): Promise<TeamsResponse> => {
   const config = useRuntimeConfig()
   const apiUrl = config.public.apiUrl
 
@@ -23,7 +23,7 @@ export default defineEventHandler(async (event): Promise<TeamsResponse> => {
         Object.entries(teamsByDivision).map(([key, value]) => [parseInt(key), value])
       ) as Record<number, Team[]>
     }
-  } catch (error) {
+  } catch {
     throw createError({
       statusCode: 500,
       statusMessage: 'Failed to fetch teams data'

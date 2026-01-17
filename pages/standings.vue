@@ -27,7 +27,7 @@
         </tr>
       </thead>
       <tbody>
-        <Block :standings="standings" />
+        <StatsBlock :standings="standings" />
       </tbody>
     </table>
     <div v-else-if="pending" class="text-white text-center py-8">Loading...</div>
@@ -36,17 +36,18 @@
 </template>
 
 <script setup lang="ts">
+import type { Standing } from '~/types/teams'
 // Define page metadata
 definePageMeta({
   title: 'Standings'
 })
 
 // Fetch data using Nuxt's $fetch (server-side)
-const { data, pending } = await useAsyncData('standings', () => $fetch('/api/standings'))
+const { data, pending } = await useAsyncData<Standing[]>('standings', () => $fetch('/api/standings'))
 
 // Safe access to standings data
 const standings = computed(() => {
   if (!data.value) return []
-  return Array.isArray(data.value) ? data.value : data.value.data || []
+  return data.value
 })
 </script>

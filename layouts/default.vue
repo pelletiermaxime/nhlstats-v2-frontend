@@ -22,7 +22,7 @@
       </div>
 
       <!-- Mobile menu, show/hide based on menu state. -->
-      <div class="sm:hidden" id="mobile-menu">
+      <div id="mobile-menu" class="sm:hidden">
         <div class="space-y-1 px-2 pb-3 pt-2">
           <NuxtLink
             v-for="item in menuElements"

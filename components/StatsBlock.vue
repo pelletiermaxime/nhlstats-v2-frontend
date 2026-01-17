@@ -14,7 +14,7 @@
           class="h-10"
           :alt="`${s.city} ${s.name}`"
           :title="`${s.city} ${s.name}`"
-        />
+        >
     </td>
     <td>{{ s.division }}</td>
     <td>{{ s.conference }}</td>
