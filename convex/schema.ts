@@ -7,13 +7,12 @@ export default defineSchema({
     city: v.string(),
     name: v.string(),
     year: v.number(),
-    division_id: v.optional(v.number()),
+    division_id: v.optional(v.id("divisions")),
     created_at: v.optional(v.number()),
     updated_at: v.optional(v.number()),
   }).index("division_id", ["division_id"]),
 
   divisions: defineTable({
-    id: v.number(),
     name: v.string(),
   }),
 });

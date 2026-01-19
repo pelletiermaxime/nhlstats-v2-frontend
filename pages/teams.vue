@@ -9,7 +9,7 @@
         {{ division.name }}
       </div>
         <div
-          v-for="team in teamsByDivision[division.id]"
+          v-for="team in teamsByDivision[division._id]"
           :key="team._id"
           class="p-3 bg-zinc-700 last:rounded-b-lg"
         >
