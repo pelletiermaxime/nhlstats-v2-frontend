@@ -1,18 +1,18 @@
 export interface Division {
-  id: number
+  id: string
   name: string
 }
 
 export interface Team {
-  id: number
+  id: string
   name: string
-  division_id: number
+  division_id?: string
 }
 
 export interface TeamsResponse {
   divisions: Division[]
   teams: Team[]
-  teamsByDivision: Record<number, Team[]>
+  teamsByDivision: Record<string, Team[]>
 }
 
 export interface Standing {

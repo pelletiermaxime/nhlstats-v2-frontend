@@ -12,3 +12,6 @@ vite.config.ts.timestamp-*
 .output/
 dist/
 .nitro/
+
+# Convex
+convex/_generated/
