@@ -30,6 +30,8 @@ definePageMeta({
 type Divisions = FunctionReturnType<typeof api.teams.getDivisions>;
 type TeamsByDivision = FunctionReturnType<typeof api.teams.getTeamsByDivision>;
 
-const { data: divisions } = useConvexQuery(api.teams.getDivisions, {}) as { data: Ref<Divisions> };
-const { data: teamsByDivision } = useConvexQuery(api.teams.getTeamsByDivision, {}) as { data: Ref<TeamsByDivision> };
+const { data: [divisions, teamsByDivision] } = await useConvexQueriesSSR([
+  api.teams.getDivisions,
+  api.teams.getTeamsByDivision
+]) as { data: [Ref<Divisions>, Ref<TeamsByDivision>] };
 </script>
