@@ -10,7 +10,7 @@ NHL Stats v2 Frontend - A Nuxt 4 application displaying NHL standings and team s
 
 ```bash
 # Development
-pnpm run dev              # Start dev server
+pnpm run dev              # Start dev server [Please never do this as I already run it manually]
 
 # Build & Preview
 pnpm run build            # Build for production
@@ -112,6 +112,7 @@ try {
 - Access database via `ctx.db`
 - Use `v` validator from `convex/values` for schema definition
 - Define indexes on frequently queried fields
+- Don't manually run `convex dev` as it is already running
 
 Example (see `convex/teams.ts`):
 ```typescript
