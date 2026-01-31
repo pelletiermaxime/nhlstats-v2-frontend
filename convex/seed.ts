@@ -15,10 +15,10 @@ export const seed = mutation({
     }
 
     const divisions = [
-      { name: "Metropolitan" },
-      { name: "Atlantic" },
-      { name: "Central" },
-      { name: "Pacific" },
+      { name: "Metropolitan", conference: "EAST" },
+      { name: "Atlantic", conference: "EAST" },
+      { name: "Central", conference: "WEST" },
+      { name: "Pacific", conference: "WEST" },
     ];
 
     const divisionIds: any[] = [];
