@@ -1,37 +1,22 @@
-export interface Division {
-  id: string
-  name: string
-}
+import type { Doc } from "./convex/_generated/dataModel";
 
-export interface Team {
-  id: string
+// Re-export Convex types
+export type Team = Doc<"teams">;
+export type Division = Doc<"divisions">;
+export type StandingRecord = Doc<"standings">;
+
+// Flattened Standing interface for UI components
+// Combines standing data with team and division info
+export interface Standing extends Omit<StandingRecord, "_id" | "_creationTime" | "team_id"> {
+  conference: string
+  short_name: string
+  city: string
   name: string
-  division_id?: string
+  division: string
 }
 
 export interface TeamsResponse {
   divisions: Division[]
   teams: Team[]
   teamsByDivision: Record<string, Team[]>
-}
-
-export interface Standing {
-  conference: string
-  short_name: string
-  city: string
-  name: string
-  division: string
-  gp: number
-  w: number
-  l: number
-  otl: number
-  pts: number
-  row: number
-  gf: number
-  ga: number
-  diff: number
-  home: string
-  away: string
-  l10: string
-  streak: string
 }

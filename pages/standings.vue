@@ -1,7 +1,6 @@
 <template>
-  <div>
+  <div v-if="standings">
     <table
-      v-if="!pending && standings.length > 0"
       id="tableOverall"
       class="w-4/5 m-auto text-white"
     >
@@ -30,24 +29,37 @@
         <StatsBlock :standings="standings" />
       </tbody>
     </table>
-    <div v-else-if="pending" class="text-white text-center py-8">Loading...</div>
-    <div v-else class="text-white text-center py-8">No standings data available</div>
   </div>
 </template>
 
 <script setup lang="ts">
 import type { Standing } from '~/types/teams'
-// Define page metadata
+import { api } from "../convex/_generated/api";
+import type { FunctionReturnType } from "convex/server";
+
 definePageMeta({
   title: 'Standings'
 })
 
-// Fetch data using Nuxt's $fetch (server-side)
-const { data, pending } = await useAsyncData<Standing[]>('standings', () => $fetch('/api/standings'))
+type StandingsWithTeams = FunctionReturnType<typeof api.standings.getCurrentStandingsWithTeams>;
 
-// Safe access to standings data
-const standings = computed(() => {
-  if (!data.value) return []
-  return data.value
+const { data: [standingsData] } = await useConvexQueriesSSR([
+  api.standings.getCurrentStandingsWithTeams
+]) as { data: [Ref<StandingsWithTeams>] };
+
+const standings = computed<Standing[]>(() => {
+  if (!standingsData.value) return []
+  
+  return standingsData.value.map((item) => {
+    const { team, division, ...stats } = item
+    return {
+      conference: division!.conference,
+      short_name: team!.short_name,
+      city: team!.city,
+      name: team!.name,
+      division: division!.name,
+      ...stats,
+    }
+  })
 })
 </script>
