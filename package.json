@@ -17,18 +17,18 @@
   },
   "devDependencies": {
     "@nuxt/eslint-config": "^1.13.0",
-    "@playwright/test": "^1.58.0",
+    "@playwright/test": "^1.58.1",
     "@unocss/nuxt": "^66.6.0",
     "@unocss/reset": "^66.6.0",
     "eslint": "^9.39.2",
     "typescript": "^5.9.3",
     "unocss": "^66.6.0",
     "vitest": "^4.0.18",
-    "vue-tsc": "^3.2.3"
+    "vue-tsc": "^3.2.4"
   },
   "dependencies": {
     "@nuxt/hints": "1.0.0-alpha.5",
-    "convex": "^1.31.6",
+    "convex": "^1.31.7",
     "convex-nuxt": "^0.1.5",
     "nuxt": "4.2.2",
     "vue": "^3.5.27"
