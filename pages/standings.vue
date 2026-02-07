@@ -1,5 +1,5 @@
 <template>
-  <div v-if="standings">
+  <div>
     <table
       id="tableOverall"
       class="w-4/5 m-auto text-white"
