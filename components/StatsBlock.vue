@@ -2,12 +2,11 @@
   <tr
     v-for="(s, position) in standings"
     :key="position"
-    class="odd:bg-zinc-700 odd:bg-zinc-600 text-center"
+    class="odd:bg-zinc-700 text-center"
   >
-    <td v-if="s.conference === 'EAST'" style="background: #b9112d; color: white; font-size: 1.8em">
+    <td :style="{ background: s.conference === 'EAST' ? '#b9112d' : '#003872', color: 'white', fontSize: '1.8em' }">
       {{ position + 1 }}
     </td>
-    <td v-else style="background: #003872; color: white; font-size: 1.8em">{{ position + 1 }}</td>
     <td width="100" align="center">
         <img
           :src="`/logos/SVG/${s.short_name}.svg`"
