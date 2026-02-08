@@ -8,7 +8,7 @@
 {
   "mcpServers": {
     "nhlstats": {
-      "url": "http://nhlstats.org/mcp-server"
+      "url": "https://nhlstats.org/mcp-server"
     }
   }
 }</pre
