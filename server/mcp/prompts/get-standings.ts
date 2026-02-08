@@ -1,6 +1,6 @@
 export default defineMcpPrompt({
   name: 'get-standings',
-  description: 'Get the standings for an NHL team',
+  description: 'Get the NHL standings for all teams',
   handler: async () => {
     return {
       messages: [{

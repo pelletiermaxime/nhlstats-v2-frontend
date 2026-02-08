@@ -1,6 +1,6 @@
 import { z } from 'zod'
 import { ConvexHttpClient } from 'convex/browser'
-import { api } from '../../../convex/_generated/api'
+import { api } from '~/convex/_generated/api'
 
 export default defineMcpTool({
   name: 'nhl-standings',
