@@ -19,7 +19,7 @@
     "typecheck": "nuxt typecheck"
   },
   "devDependencies": {
-    "@nuxt/eslint-config": "^1.13.0",
+    "@nuxt/eslint-config": "^1.14.0",
     "@playwright/test": "^1.58.1",
     "@unocss/nuxt": "^66.6.0",
     "@unocss/reset": "^66.6.0",
