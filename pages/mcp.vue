@@ -7,8 +7,8 @@
       <pre class="bg-black text-white p-4 rounded overflow-x-auto font-mono text-sm">
 {
   "mcpServers": {
-    "nhlstats-remote": {
-      "url": "https://api.nhlstats.org/mcp/nhlstats"
+    "nhlstats": {
+      "url": "http://nhlstats.org/mcp-server"
     }
   }
 }</pre
