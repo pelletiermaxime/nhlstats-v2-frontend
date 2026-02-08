@@ -6,6 +6,7 @@ node_modules
 !.env.example
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
+.turbo
 
 # Nuxt
 .nuxt/
@@ -15,3 +16,7 @@ dist/
 
 # Convex
 convex/_generated/
+
+# AI stuff
+plans
+.kilocode

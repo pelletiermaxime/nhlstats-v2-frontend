@@ -232,14 +232,3 @@ export const syncStandings = internalMutation({
     return { updated: args.standings.length };
   },
 });
-
-export const testSyncStandings = action({
-  args: { year: v.optional(v.number()) },
-  handler: async (ctx, args) => {
-    const year = args.year ?? 2026;
-    const result = await ctx.runAction(internal.standings.syncStandingsAction, {
-      year,
-    });
-    return result;
-  },
-});

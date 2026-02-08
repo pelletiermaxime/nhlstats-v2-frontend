@@ -2,11 +2,14 @@
   "name": "nhlstats-v2-frontend",
   "version": "0.0.1",
   "private": true,
+  "packageManager": "pnpm@10.28.1",
   "engines": {
     "node": ">=24"
   },
   "scripts": {
-    "dev": "nuxt dev --dotenv .env.local",
+    "dev": "turbo run dev:nuxt dev:convex --ui=tui",
+    "dev:nuxt": "nuxt dev --dotenv .env.local",
+    "dev:convex": "convex dev",
     "build": "nuxt build",
     "preview": "nuxt preview",
     "test": "npm run test:integration && npm run test:unit",
@@ -21,13 +24,17 @@
     "@unocss/nuxt": "^66.6.0",
     "@unocss/reset": "^66.6.0",
     "eslint": "^9.39.2",
+    "turbo": "^2.8.3",
     "typescript": "^5.9.3",
     "unocss": "^66.6.0",
     "vitest": "^4.0.18",
-    "vue-tsc": "^3.2.4"
+    "vue-tsc": "^3.2.4",
+    "zod": "^4.3.6"
   },
   "dependencies": {
     "@nuxt/hints": "1.0.0-alpha.5",
+    "@nuxtjs/mcp-toolkit": "0.6.3",
+    "agents": "^0.3.10",
     "convex": "^1.31.7",
     "convex-nuxt": "^0.1.5",
     "nuxt": "4.2.2",
