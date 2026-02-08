@@ -9,15 +9,8 @@ export default defineMcpTool({
     year: z.number().describe('The year to fetch the standings for (e.g., 2023, 2024, 2026)')
   },
   handler: async ({ year }) => {
-    const convexUrl = process.env.CONVEX_URL
-    if (!convexUrl) {
-      return {
-        content: [{
-          type: 'text',
-          text: 'CONVEX_URL environment variable is not set'
-        }]
-      }
-    }
+    const { convex } = useRuntimeConfig()
+    const convexUrl = convex.url
 
     try {
       const convex = new ConvexHttpClient(convexUrl)

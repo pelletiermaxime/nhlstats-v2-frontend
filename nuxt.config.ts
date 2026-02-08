@@ -20,6 +20,9 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       apiUrl: process.env.API_URL || 'https://api.nhlstats.org'
+    },
+    convex: {
+      url: process.env.CONVEX_URL
     }
   },
   devtools: { enabled: true },
