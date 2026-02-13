@@ -2,7 +2,7 @@
   "name": "nhlstats-v2-frontend",
   "version": "0.0.1",
   "private": true,
-  "packageManager": "pnpm@10.28.1",
+  "packageManager": "pnpm@10.29.3",
   "engines": {
     "node": ">=24"
   },
@@ -19,12 +19,12 @@
     "typecheck": "nuxt typecheck"
   },
   "devDependencies": {
-    "@nuxt/eslint-config": "^1.13.0",
-    "@playwright/test": "^1.58.1",
+    "@nuxt/eslint-config": "^1.15.1",
+    "@playwright/test": "^1.58.2",
     "@unocss/nuxt": "^66.6.0",
     "@unocss/reset": "^66.6.0",
     "eslint": "^9.39.2",
-    "turbo": "^2.8.3",
+    "turbo": "^2.8.8",
     "typescript": "^5.9.3",
     "unocss": "^66.6.0",
     "vitest": "^4.0.18",
@@ -32,12 +32,12 @@
     "zod": "^4.3.6"
   },
   "dependencies": {
-    "@nuxt/hints": "1.0.0-alpha.5",
-    "@nuxtjs/mcp-toolkit": "0.6.3",
-    "agents": "^0.3.10",
+    "@nuxt/hints": "1.0.0-alpha.6",
+    "@nuxtjs/mcp-toolkit": "^0.6.4",
+    "agents": "^0.4.1",
     "convex": "^1.31.7",
     "convex-nuxt": "^0.1.5",
-    "nuxt": "4.2.2",
-    "vue": "^3.5.27"
+    "nuxt": "^4.3.1",
+    "vue": "^3.5.28"
   }
 }
