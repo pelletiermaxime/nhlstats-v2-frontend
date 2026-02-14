@@ -1,0 +1,258 @@
+import { query, internalAction, internalMutation } from "./_generated/server";
+import type { QueryCtx } from "./_generated/server";
+import { internal } from "./_generated/api";
+import { v } from "convex/values";
+
+interface NHLPlayerStats {
+  playerId: number;
+  skaterFullName: string;
+  lastName: string;
+  teamAbbrevs: string;
+  positionCode: string;
+  gamesPlayed: number;
+  goals: number;
+  assists: number;
+  points: number;
+  plusMinus: number;
+  penaltyMinutes: number;
+  pointsPerGame: number;
+  gameWinningGoals: number;
+  overtimeGoals: number;
+  otGoals: number;
+  shots: number;
+  shootingPct: number;
+  timeOnIcePerGame: number;
+  faceoffWinPct: number | null;
+  evGoals: number;
+  evPoints: number;
+  ppGoals: number;
+  ppPoints: number;
+  shGoals: number;
+  shPoints: number;
+  shootsCatches: string;
+}
+
+export const getPlayerStatsByYear = query({
+  args: { year: v.number() },
+  handler: async (ctx, args) => {
+    const playerStats = await ctx.db
+      .query("playerStats")
+      .withIndex("year", (q) => q.eq("year", args.year))
+      .collect();
+    return playerStats;
+  },
+});
+
+export const getPlayerStatsByTeam = query({
+  args: { year: v.number(), teamId: v.id("teams") },
+  handler: async (ctx, args) => {
+    const playerStats = await ctx.db
+      .query("playerStats")
+      .withIndex("year_team_id", (q) =>
+        q.eq("year", args.year).eq("team_id", args.teamId)
+      )
+      .collect();
+    return playerStats;
+  },
+});
+
+export const getPlayerStatsByPlayerId = query({
+  args: { year: v.number(), playerId: v.number() },
+  handler: async (ctx, args) => {
+    const playerStats = await ctx.db
+      .query("playerStats")
+      .withIndex("year_playerId", (q) =>
+        q.eq("year", args.year).eq("playerId", args.playerId)
+      )
+      .first();
+    return playerStats;
+  },
+});
+
+async function fetchPlayerStatsWithTeams(ctx: QueryCtx, year: number) {
+  const playerStats = await ctx.db
+    .query("playerStats")
+    .withIndex("year", (q) => q.eq("year", year))
+    .collect();
+
+  const teams = await ctx.db.query("teams").collect();
+  const teamMap = new Map(teams.map((t) => [t._id.toString(), t]));
+
+  return playerStats.map((stat) => {
+    const team = teamMap.get(stat.team_id.toString());
+    return {
+      ...stat,
+      team,
+    };
+  });
+}
+
+export const getPlayerStatsWithTeams = query({
+  args: { year: v.number() },
+  handler: async (ctx, args) => {
+    return fetchPlayerStatsWithTeams(ctx, args.year);
+  },
+});
+
+export const syncPlayerStatsAction = internalAction({
+  args: { year: v.number(), limit: v.number() },
+  handler: async (ctx, args) => {
+    const seasonId = "20252026";
+    const gameTypeId = 2;
+    const url = `https://api.nhle.com/stats/rest/en/skater/summary?isAggregate=false&isGame=false&start=0&limit=${args.limit}&cayenneExp=gameTypeId=${gameTypeId}%20and%20seasonId=${seasonId}`;
+
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`Failed to fetch player stats: ${response.statusText}`);
+    }
+
+    const data = await response.json();
+    const apiPlayerStats: NHLPlayerStats[] = data.data || [];
+
+    const playerStats = apiPlayerStats.map((s) => {
+      const nameParts = s.skaterFullName.split(" ");
+      const firstName = nameParts[0] || "";
+      const lastName = nameParts.slice(1).join(" ") || "";
+      
+      return {
+        playerId: s.playerId,
+        firstName,
+        lastName,
+        teamAbbrevs: s.teamAbbrevs,
+        positionCode: s.positionCode,
+        gamesPlayed: s.gamesPlayed,
+        goals: s.goals,
+        assists: s.assists,
+        points: s.points,
+        plusMinus: s.plusMinus,
+        penaltyMinutes: s.penaltyMinutes,
+        pointsPerGame: s.pointsPerGame,
+        gameWinningGoals: s.gameWinningGoals,
+        overtimeGoals: s.otGoals,
+        shots: s.shots,
+        shootingPct: s.shootingPct ?? 0,
+        timeOnIcePerGame: s.timeOnIcePerGame,
+        faceoffWinPct: s.faceoffWinPct ?? 0,
+        powerPlayGoals: s.ppGoals,
+        powerPlayAssists: s.ppPoints - s.ppGoals,
+        powerPlayPoints: s.ppPoints,
+        shorthandedGoals: s.shGoals,
+        shorthandedAssists: s.shPoints - s.shGoals,
+        shorthandedPoints: s.shPoints,
+      };
+    });
+
+    await ctx.runMutation(internal.playerStats.syncPlayerStats, {
+      year: args.year,
+      playerStats,
+    });
+
+    return { count: playerStats.length };
+  },
+});
+
+export const syncPlayerStats = internalMutation({
+  args: {
+    year: v.number(),
+    playerStats: v.array(
+      v.object({
+        playerId: v.number(),
+        firstName: v.string(),
+        lastName: v.string(),
+        teamAbbrevs: v.string(),
+        positionCode: v.string(),
+        gamesPlayed: v.number(),
+        goals: v.number(),
+        assists: v.number(),
+        points: v.number(),
+        plusMinus: v.number(),
+        penaltyMinutes: v.number(),
+        pointsPerGame: v.number(),
+        gameWinningGoals: v.number(),
+        overtimeGoals: v.number(),
+        shots: v.number(),
+        shootingPct: v.number(),
+        timeOnIcePerGame: v.number(),
+        faceoffWinPct: v.number(),
+        powerPlayGoals: v.number(),
+        powerPlayAssists: v.number(),
+        powerPlayPoints: v.number(),
+        shorthandedGoals: v.number(),
+        shorthandedAssists: v.number(),
+        shorthandedPoints: v.number(),
+      })
+    ),
+  },
+  handler: async (ctx, args) => {
+    const allTeams = await ctx.db.query("teams").collect();
+    const teamMap = new Map(allTeams.map((t) => [t.short_name, t._id]));
+
+    const existingPlayerStats = await ctx.db
+      .query("playerStats")
+      .withIndex("year", (q) => q.eq("year", args.year))
+      .collect();
+    const existingMap = new Map(
+      existingPlayerStats.map((s) => [s.playerId, s._id])
+    );
+
+    let inserted = 0;
+    let updated = 0;
+
+    for (const playerStat of args.playerStats) {
+      // Handle players who played for multiple teams - take the last team
+      const teamAbbrevRaw = playerStat.teamAbbrevs.includes(',')
+        ? playerStat.teamAbbrevs.split(',').pop()
+        : playerStat.teamAbbrevs;
+      const teamAbbrev = teamAbbrevRaw?.trim();
+      if (!teamAbbrev) {
+        console.log(`Team abbreviation not found for player: ${playerStat.firstName} ${playerStat.lastName}`);
+        continue;
+      }
+      const teamId = teamMap.get(teamAbbrev);
+
+      if (!teamId) {
+        console.log(`Team not found: ${playerStat.teamAbbrevs}`);
+        continue;
+      }
+
+      const playerStatsData = {
+        playerId: playerStat.playerId,
+        firstName: playerStat.firstName,
+        lastName: playerStat.lastName,
+        team_id: teamId,
+        positionCode: playerStat.positionCode,
+        year: args.year,
+        gamesPlayed: playerStat.gamesPlayed,
+        goals: playerStat.goals,
+        assists: playerStat.assists,
+        points: playerStat.points,
+        plusMinus: playerStat.plusMinus,
+        penaltyMinutes: playerStat.penaltyMinutes,
+        pointsPerGame: playerStat.pointsPerGame,
+        gameWinningGoals: playerStat.gameWinningGoals,
+        overtimeGoals: playerStat.overtimeGoals,
+        shots: playerStat.shots,
+        shootingPct: playerStat.shootingPct,
+        timeOnIcePerGame: playerStat.timeOnIcePerGame,
+        faceoffWinPct: playerStat.faceoffWinPct,
+        powerPlayGoals: playerStat.powerPlayGoals,
+        powerPlayAssists: playerStat.powerPlayAssists,
+        powerPlayPoints: playerStat.powerPlayPoints,
+        shorthandedGoals: playerStat.shorthandedGoals,
+        shorthandedAssists: playerStat.shorthandedAssists,
+        shorthandedPoints: playerStat.shorthandedPoints,
+      };
+
+      const existingId = existingMap.get(playerStat.playerId);
+      if (existingId) {
+        await ctx.db.patch(existingId, playerStatsData);
+        updated++;
+      } else {
+        await ctx.db.insert("playerStats", playerStatsData);
+        inserted++;
+      }
+    }
+
+    return { inserted, updated };
+  },
+});
