@@ -43,4 +43,36 @@ export default defineSchema({
     .index("team_id", ["team_id"])
     .index("year", ["year"])
     .index("year_team", ["year", "team_id"]),
+
+  playerStats: defineTable({
+    playerId: v.number(),
+    firstName: v.string(),
+    lastName: v.string(),
+    team_id: v.id("teams"),
+    positionCode: v.string(),
+    year: v.number(),
+    gamesPlayed: v.number(),
+    goals: v.number(),
+    assists: v.number(),
+    points: v.number(),
+    plusMinus: v.number(),
+    penaltyMinutes: v.number(),
+    pointsPerGame: v.number(),
+    gameWinningGoals: v.number(),
+    overtimeGoals: v.number(),
+    shots: v.number(),
+    shootingPct: v.number(),
+    timeOnIcePerGame: v.number(),
+    faceoffWinPct: v.number(),
+    powerPlayGoals: v.number(),
+    powerPlayAssists: v.number(),
+    powerPlayPoints: v.number(),
+    shorthandedGoals: v.number(),
+    shorthandedAssists: v.number(),
+    shorthandedPoints: v.number(),
+  })
+    .index("playerId", ["playerId"])
+    .index("year", ["year"])
+    .index("year_playerId", ["year", "playerId"])
+    .index("year_team_id", ["year", "team_id"]),
 });

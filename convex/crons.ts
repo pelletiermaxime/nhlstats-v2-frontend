@@ -12,4 +12,14 @@ crons.hourly(
   { year: 2026 }
 );
 
+crons.daily(
+  "sync NHL player stats",
+  {
+    hourUTC: 12,
+    minuteUTC: 0,
+  },
+  internal.playerStats.syncPlayerStatsAction,
+  { year: 2026, limit: -1 }
+);
+
 export default crons;
