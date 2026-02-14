@@ -110,9 +110,8 @@ export const syncPlayerStatsAction = internalAction({
     const apiPlayerStats: NHLPlayerStats[] = data.data || [];
 
     const playerStats = apiPlayerStats.map((s) => {
-      const nameParts = s.skaterFullName.split(" ");
-      const firstName = nameParts[0] || "";
-      const lastName = nameParts.slice(1).join(" ") || "";
+      const lastName = s.lastName;
+      const firstName = s.skaterFullName.replace(lastName, '').trim();
       
       return {
         playerId: s.playerId,
